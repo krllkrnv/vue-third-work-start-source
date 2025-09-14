@@ -18,3 +18,7 @@ import { HomeView } from "@/views";
   font-family: sans-serif;
 }
 </style>
+
+<style lang="scss">
+@import "@frontend/assets/scss/app.scss";
+</style>
