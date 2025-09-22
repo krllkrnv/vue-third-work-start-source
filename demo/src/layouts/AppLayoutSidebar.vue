@@ -20,7 +20,7 @@
             <div class="backlog__user">
               <div class="backlog__account">
                 <img
-                    src="@/assets/img/user6.jpg"
+                    src="@frontend/assets/img/user6.jpg"
                     alt="Ваш аватар"
                     width="32"
                     height="32"
