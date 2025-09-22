@@ -124,7 +124,7 @@ function moveTask (active, toTask) {
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/scss/app.scss";
+@import "@frontend/assets/scss/app.scss";
 .column {
   display: flex;
   flex-direction: column;

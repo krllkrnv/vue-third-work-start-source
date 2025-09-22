@@ -28,7 +28,7 @@ const tagsArray = computed(() => {
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/scss/app.scss";
+@import "@frontend/assets/scss/app.scss";
 
 .task__tags {
   display: flex;

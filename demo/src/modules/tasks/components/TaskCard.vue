@@ -65,7 +65,7 @@ defineEmits(['drop'])
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/scss/app.scss";
+@import "@frontend/assets/scss/app.scss";
 
 .task {
   display: flex;
