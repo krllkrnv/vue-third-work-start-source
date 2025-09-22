@@ -30,4 +30,8 @@ export const STATUSES = [
   export const DAY_IN_MILLISEC = DAY_IN_SEC * SEC;
   
   export const TAG_SEPARATOR = '#';
+
+  export const MOVE = 'move';
+  export const DATA_TRANSFER_PAYLOAD = 'payload';
+
   
