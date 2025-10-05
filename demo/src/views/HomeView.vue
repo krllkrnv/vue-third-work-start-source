@@ -87,6 +87,8 @@
     <router-view
         :tasks="props.tasks"
         @add-task="$emit('addTask', $event)"
+        @edit-task="$emit('editTask', $event)"
+        @delete-task="$emit('deleteTask', $event)"
     />
   </main>
 </template>
@@ -111,7 +113,7 @@ const props = defineProps({
   }
 })
 
-defineEmits(['applyFilters', 'updateTasks', 'addTask'])
+defineEmits(['applyFilters', 'updateTasks', 'addTask', 'editTask', 'deleteTask'])
 
 const state = reactive({ columns })
 
