@@ -82,6 +82,12 @@
         Пока нет ни одной колонки
       </p>
     </section>
+    
+    <!--      Отображение дочерних маршрутов-->
+    <router-view
+        :tasks="props.tasks"
+        @add-task="$emit('addTask', $event)"
+    />
   </main>
 </template>
 
@@ -105,7 +111,7 @@ const props = defineProps({
   }
 })
 
-defineEmits(['applyFilters', 'updateTasks'])
+defineEmits(['applyFilters', 'updateTasks', 'addTask'])
 
 const state = reactive({ columns })
 
