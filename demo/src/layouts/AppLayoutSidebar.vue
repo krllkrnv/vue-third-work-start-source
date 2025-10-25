@@ -1,87 +1,74 @@
 <template>
-    <!--  Отслеживает, в какую колонку передана задача-->
-    <app-drop
-        class="backlog"
-        :class="{ 'backlog--hide': state.backlogIsHidden }"
-        @drop="moveTask"
+  <!--  Отслеживает в какую колонку передана задача-->
+  <app-drop
+      class="backlog"
+      :class="{ 'backlog--hide': state.backlogIsHidden }"
+      @drop="moveTask"
+  >
+    <!--  Отвечает за открытие/закрытие беклога-->
+    <button
+        class="backlog__title"
+        @click="state.backlogIsHidden = !state.backlogIsHidden"
     >
-      <!--  Отвечает за открытие и закрытие бэклога-->
-      <button
-          class="backlog__title"
-          @click="state.backlogIsHidden = !state.backlogIsHidden"
-      >
-        <span>
-          Бэклог
-        </span>
-      </button>
-      <div class="backlog__content">
-        <div class="backlog__scroll">
-          <div class="backlog__collapse">
-            <div class="backlog__user">
-              <div class="backlog__account">
-                <img
-                    src="@frontend/assets/img/user6.jpg"
-                    alt="Ваш аватар"
-                    width="32"
-                    height="32"
-                />
-                Игорь Пятин
-              </div>
-  
-              <div class="backlog__counter">
-                {{ sidebarTasks.length }}
-              </div>
-            </div>
-  
-            <div class="backlog__target-area">
-              <!--  Задачи в бэклоге-->
-              <task-card
-                  v-for="task in sidebarTasks"
-                  :key="task.id"
-                  :task="task"
-                  class="backlog__task"
-                  @drop="moveTask($event, task)"
+      <span>
+        Бэклог
+      </span>
+    </button>
+    <div class="backlog__content">
+      <div class="backlog__scroll">
+        <div class="backlog__collapse">
+          <div class="backlog__user">
+            <div class="backlog__account">
+              <img
+                  src="@/assets/img/user6.jpg"
+                  alt="Ваш аватар"
+                  width="32"
+                  height="32"
               />
+              Игорь Пятин
             </div>
+
+            <div class="backlog__counter">
+              {{ tasksStore.sidebarTasks.length }}
+            </div>
+          </div>
+
+          <div class="backlog__target-area">
+            <!--  Задачи в беклоге-->
+            <task-card
+                v-for="task in tasksStore.sidebarTasks"
+                :key="task.id"
+                :task="task"
+                class="backlog__task"
+                @drop="moveTask($event, task)"
+            />
           </div>
         </div>
       </div>
-    </app-drop>
-  </template>
-  
-  <script setup>
-import { reactive, computed } from 'vue'
+    </div>
+  </app-drop>
+</template>
+
+<script setup>
+import { reactive } from 'vue'
 import AppDrop from '@/common/components/AppDrop.vue'
 import TaskCard from '@/modules/tasks/components/TaskCard.vue'
 import { getTargetColumnTasks, addActive } from '@/common/helpers'
+import { useTasksStore } from '@/stores/tasks'
 
-const props = defineProps({
-  tasks: {
-    type: Array,
-    required: true
-  }
-})
+const tasksStore = useTasksStore()
 
 const state = reactive({ backlogIsHidden: false })
 
-// Фильтруем задачи, которые относятся к бэклогу (columnId === null)
-const sidebarTasks = computed(() => {
-  return props.tasks
-      .filter(task => !task.columnId)
-      .sort((a, b) => a.sortOrder - b.sortOrder)
-})
-
-const emits = defineEmits(['updateTasks'])
-
 function moveTask (active, toTask) {
-  // Не обновляем массив, если задача не перемещалась
+  // Не обновляем массив если задача фактически не перемещалась
   if (toTask && active.id === toTask.id) {
     return
   }
 
   const toColumnId = null
   // Получить задачи для текущей колонки
-  const targetColumnTasks = getTargetColumnTasks(toColumnId, props.tasks)
+  const targetColumnTasks = getTargetColumnTasks(toColumnId, tasksStore.tasks)
   const activeClone = { ...active, columnId: toColumnId }
   // Добавить активную задачу в колонку
   const resultTasks = addActive(activeClone, toTask, targetColumnTasks)
@@ -94,12 +81,12 @@ function moveTask (active, toTask) {
       tasksToUpdate.push(newTask)
     }
   })
-  emits('updateTasks', tasksToUpdate)
+  tasksStore.updateTasks(tasksToUpdate)
 }
 </script>
 
 <style lang="scss" scoped>
-@import "@frontend/assets/scss/app.scss";
+@import "@/assets/scss/app.scss";
 
 .backlog {
   display: flex;
