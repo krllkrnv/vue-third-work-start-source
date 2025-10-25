@@ -132,5 +132,4 @@ function deleteTask (id) {
 </script>
 
 <style lang="scss">
-@import "@/assets/scss/app.scss";
 </style>

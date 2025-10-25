@@ -8,21 +8,31 @@ export default [
 			{
 				path: '/:id',
 				name: 'TaskView',
-				component: () => import('../views/TaskView.vue'),
+				component: () => import('../../../frontend/src/views/TaskView.vue'),
 				meta: { layout: 'AppLayoutMain' }
 			},
 			{
 				path: '/tasks/create',
 				name: 'TaskCreate',
-				component: () => import('../views/TaskCreate.vue'),
+				component: () => import('../../../frontend/src/views/TaskCreate.vue'),
 				meta: { layout: 'AppLayoutMain' }
 			},
 			{
 				path: '/tasks/edit/:id',
 				name: 'TaskEdit',
-				component: () => import('../views/TaskEdit.vue'),
+				component: () => import('../../../frontend/src/views/TaskEdit.vue'),
 				meta: { layout: 'AppLayoutMain' }
 			}
 		]
-	}
+	},
+    {
+        name: 'Counter Base',
+        path: '/counter-0',
+        component: () => import('../demo0/DemoCounter.vue')
+    },
+    {
+        name: 'Counter Pinia',
+        path: '/counter-4',
+        component: () => import('../demo4/DemoCounter.vue')
+    }
 ]
