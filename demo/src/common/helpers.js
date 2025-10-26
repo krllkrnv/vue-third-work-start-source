@@ -60,3 +60,8 @@ export const addActive = (active, toTask, tasks) => {
   }
   return tasks;
 };
+
+export const getPublicImage = path => {
+	const publicUrl = '/api'
+	return `${publicUrl}/${path}`
+}
